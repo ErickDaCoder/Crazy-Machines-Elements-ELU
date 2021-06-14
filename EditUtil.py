@@ -1,7 +1,3 @@
-#import base64
-
-#Future note: Level name starts 18 bytes after the save game header.
-
 import sqlite3
 import lzma
 choice = input("""Crazy Machines Elements editor levels utility version 1.2
