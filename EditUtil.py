@@ -45,7 +45,7 @@ elif choice=="6":
                 # name_in_db = strftime("%a, %b %d %Y %H:%M:%S", gmtime()) + " (Level " + str(i) + " in mass backup)"
                 cme_level_name = level_file_handler.read(51)[23:]
                 cme_level_name_end_index = cme_level_name.find(b'\x00\x00\x00\x16\x00')
-                cme_level_name = cme_level_name[0:cme_level_name_end_index]
+                cme_level_name = cme_level_name[:cme_level_name_end_index]
                 cme_level_name = cme_level_name.replace(b'\x00',b'')
                 print(cme_level_name)
                 cme_level_name = cme_level_name.decode()
