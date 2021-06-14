@@ -5,6 +5,3 @@ Join the discord server! https://discord.gg/JjUXgD5jvF
 
 # How to use
 Put the EditUtil.py file into Documents\My Games\Crazy Machines Elements and run it from there. It will create a database for it to access backed up levels.
-
-# Weird bug
-For some reason, the program keeps saying there's an error (Invalid Argument) sometimes.
