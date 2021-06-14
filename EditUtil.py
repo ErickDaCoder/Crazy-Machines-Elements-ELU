@@ -9,7 +9,7 @@ Here are the options:
 4. List levels stored in the database (type 4),
 5. Delete all levels stored in the database (type 5),
 6. Backup all levels (type 6),
-7. Rename a level (type 7),
+7. Rename a level in the database (type 7),
 8. Reset the database (type 8)\n""")
 
 database = sqlite3.connect("leveldb.db")
@@ -20,16 +20,16 @@ if choice=="1":
     levelname = "level0" + str(int(input("Level number to save:\n"))-1) + ".cml"
     with open(levelname, "rb") as level_file_handler:
         name_in_db = input("What should the level be called in the database?\n")
-        database_cursor.execute("INSERT INTO \"levels\"(\"levelname\", \"leveldata\") VALUES (?, ?)", ( name_in_db, lzma.compress(level_file_handler.read()) ))
+        database_cursor.execute("INSERT INTO \"levels\"(\"levelname\", \"leveldata\") VALUES (?, ?)", (name_in_db, lzma.compress(level_file_handler.read())))
 elif choice=="2":
     database_cursor.execute("DELETE FROM levels WHERE levelname=\""+input("Level name to delete: ")+"\"")
 elif choice=="3":
     name_in_db = input("Level name to restore: ")
     levelnumber = input("Level number to replace (Will delete that level if the level already exists): ")
     levelname = "level0"+str(int(levelnumber)-1) + ".cml"
-    level_file_handler = open(levelname, "wb")
-    database_cursor.execute("SELECT leveldata FROM levels WHERE levelname=\""+name_in_db+"\"")
-    level_file_handler.write(lzma.decompress(database_cursor.fetchone()[0]))
+    with open(levelname, "wb") as level_file_handler:
+        database_cursor.execute("SELECT leveldata FROM levels WHERE levelname=\""+name_in_db+"\"")
+        level_file_handler.write(lzma.decompress(database_cursor.fetchone()[0]))
 elif choice=="4":
     for levelname in database_cursor.execute("SELECT levelname FROM levels"):
         print(levelname[0]+"\n")
